@@ -18,5 +18,17 @@
   {
     "name": "LatexLabworksTemplate",
     "github_url": "https://github.com/Probst1nator/LatexLabworksTemplate.git"
+  },
+  {
+    "name": "fau-courses",
+    "github_url": "https://github.com/Probst1nator/fau-courses.git"
+  },
+  {
+    "name": "quizhub-client",
+    "github_url": "https://github.com/Probst1nator/quizhub-client.git"
+  },
+  {
+    "name": "belegungen-watcher",
+    "github_url": "https://github.com/Probst1nator/belegungen-watcher.git"
   }
 ]

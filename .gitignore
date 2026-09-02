@@ -11,9 +11,10 @@ manim-kit/
 FAU-Studium-References/
 LatexLabworksTemplate/
 
-# --- Not-yet-versioned projects and leftovers (decide per project, not here) ---
 quizhub-client/
 belegungen-watcher/
+
+# --- Not-yet-versioned projects and leftovers (decide per project, not here) ---
 lecture-recorder/
 _archived/
 screenshot-blogpost/
