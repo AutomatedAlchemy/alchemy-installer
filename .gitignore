@@ -1,0 +1,33 @@
+# --- Per-host agent config (machine-local, replicated by Syncthing not git) ---
+.claude/
+CLAUDE.md
+
+# --- Nested repositories (each has its own history + remote; never absorb) ---
+cli-tool-kit/
+studon-client/
+bloggen/
+fau-courses/
+manim-kit/
+FAU-Studium-References/
+LatexLabworksTemplate/
+
+# --- Not-yet-versioned projects and leftovers (decide per project, not here) ---
+quizhub-client/
+belegungen-watcher/
+lecture-recorder/
+_archived/
+screenshot-blogpost/
+studon-scraper/
+cip_tools/
+ssh_help/
+
+# --- Runtime output ---
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+.stfolder/
+.stversions/
+*.sync-conflict-*

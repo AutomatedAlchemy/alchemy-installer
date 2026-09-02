@@ -1,0 +1,22 @@
+[
+  {
+    "name": "studon-client",
+    "github_url": "https://github.com/Probst1nator/studon-client.git"
+  },
+  {
+    "name": "bloggen",
+    "github_url": "https://github.com/Probst1nator/BlogGen.git"
+  },
+  {
+    "name": "manim-kit",
+    "github_url": "https://github.com/AutomatedAlchemy/manim-kit.git"
+  },
+  {
+    "name": "FAU-Studium-References",
+    "github_url": "https://github.com/Probst1nator/FAU-KIM-Resources.git"
+  },
+  {
+    "name": "LatexLabworksTemplate",
+    "github_url": "https://github.com/Probst1nator/LatexLabworksTemplate.git"
+  }
+]
