@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""AutomatedAlchemy installer — thin wrapper over cli-tool-kit's GUI engine.
+"""AutomatedAlchemy installer — thin wrapper over cli-tools-kit's GUI engine.
 
 The full installer (tkinter GUI, --advertise discovery, install/remove, themes,
-orphan cleanup, per-row skills, login update-check) lives in the cli-tool-kit
-package as ``cli_tool_kit.gui_installer`` and is shared with
+orphan cleanup, per-row skills, login update-check) lives in the cli-tools-kit
+package as ``cli_tools_kit.gui_installer`` and is shared with
 ``~/Synced/repos/tools/installer.py``. This wrapper adds the AutomatedAlchemy
 specifics on top of that engine:
 
@@ -30,7 +30,7 @@ Usage:
     python installer.py --check               # headless login check (skill-only)
     python installer.py --enable-autostart-check / --disable-autostart-check
 
-Engine source & docs: ~/Synced/repos/AutomatedAlchemy/cli-tool-kit/ (github.com/Probst1nator/cli-tool-kit).
+Engine source & docs: ~/Synced/repos/AutomatedAlchemy/cli-tools-kit/ (github.com/Probst1nator/cli-tools-kit).
 """
 
 from __future__ import annotations
@@ -42,8 +42,8 @@ import subprocess
 import sys
 from typing import List, Optional, Tuple
 
-from cli_tool_kit import gui_installer as gi
-from cli_tool_kit.gui_installer import ToolEntry
+from cli_tools_kit import gui_installer as gi
+from cli_tools_kit.gui_installer import ToolEntry
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 HOME = os.path.expanduser("~")

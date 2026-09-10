@@ -3,7 +3,7 @@
 CLAUDE.md
 
 # --- Nested repositories (each has its own history + remote; never absorb) ---
-cli-tool-kit/
+cli-tools-kit/
 studon-client/
 bloggen/
 fau-courses/
@@ -13,6 +13,7 @@ LatexLabworksTemplate/
 
 quizhub-client/
 belegungen-watcher/
+lernclaude/
 
 # --- Not-yet-versioned projects and leftovers (decide per project, not here) ---
 lecture-recorder/
