@@ -1,0 +1,34 @@
+# Tools the installer offers. This repo holds none of them itself.
+#
+# `path` is relative to this file and pins a checkout that is never cloned.
+# `url` must be an https:// URL; it is cloned into ROOT/<name> on the first run.
+# A source with both uses `path` when that directory exists, else the URL.
+# `installer.local.toml` next to this file overrides `root` and any `path`.
+
+[[source]]
+name = "bloggen"
+url = "https://github.com/AutomatedAlchemy/BlogGen"
+
+[[source]]
+name = "manim-kit"
+url = "https://github.com/AutomatedAlchemy/manim-kit"
+
+[[source]]
+name = "studon-client"
+url = "https://github.com/Probst1nator/studon-client"
+
+[[source]]
+name = "fau-courses"
+url = "https://github.com/Probst1nator/fau-courses"
+
+[[source]]
+name = "quizhub-client"
+url = "https://github.com/Probst1nator/quizhub-client"
+
+[[source]]
+name = "belegungen-watcher"
+url = "https://github.com/Probst1nator/belegungen-watcher"
+
+[[source]]
+name = "lernclaude"
+url = "https://github.com/Probst1nator/lernclaude"

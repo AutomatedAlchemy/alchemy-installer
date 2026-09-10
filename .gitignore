@@ -23,6 +23,10 @@ studon-scraper/
 cip_tools/
 ssh_help/
 
+# --- The local override of installer.toml: one host's paths, never shipped ---
+installer.local.toml
+.installer-venv/
+
 # --- Runtime output ---
 *.log
 __pycache__/
