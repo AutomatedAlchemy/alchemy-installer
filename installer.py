@@ -29,8 +29,7 @@ on.
 
 Discovery is the kit's own walker: a tool is a directory with a
 `requirements.txt` next to an entry point (`main.py`, or `<dir>.py` with dashes
-as underscores, so `studon-client/studon_client.py` counts), probed with
-`--advertise`.
+as underscores, so `my-tool/my_tool.py` counts), probed with `--advertise`.
 
 A tool whose requirements.txt lists real dependencies runs in its own venv; the
 engine alone would bake the interpreter running this script into the commands.
@@ -39,9 +38,8 @@ So every call into such a tool goes through its own venv interpreter
 provisioned on first install. A tool with no dependencies runs on this
 interpreter.
 
-The login check (`--check`) only reconciles skills. The `--install` of
-studon-client and quizhub-client registers @reboot cron entries, a `~/.bashrc`
-function and, for studon-client, an interactive Firefox login, so a login hook
+The login check (`--check`) only reconciles skills. A tool's `--install` may
+register cron entries, shell functions or an interactive login, so a login hook
 must never run it.
 """
 

@@ -9,10 +9,6 @@ The tools it offers:
 - **bloggen** turns a screenshot, images, a PDF or text into a self-contained
   HTML blogpost.
 - **manim-kit** scaffolds, renders and opens Manim Community math animations.
-- **studon-client** fetches FAU StudOn and campo data: course files, timetable,
-  Modulplan, Belegungen, exam registration deadlines.
-- **fau-courses** searches the public FAU course and exam catalog by topic.
-- **quizhub-client** uploads course material to Quiz Hub and builds a daily quiz.
 - **lernclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
 
@@ -48,10 +44,6 @@ list.
 If you want the tools to work inside Claude Code as well, press `1` before
 `Enter`.
 
-Installing `studon-client` or `quizhub-client` also adds `@reboot` cron entries
-for their background syncs. `fau-courses` needs an API key in its `.env`; its
-`.env.example` shows the format.
-
 ### Or let Claude Code install it
 
 If you already have Claude Code, paste this into a `claude` session on the
@@ -70,7 +62,7 @@ Set up the AutomatedAlchemy learning tools on this machine. Steps:
    ./alchemy-tools/.installer-venv/bin/python3 alchemy-installer/installer.py --root "$PWD/alchemy-tools" --apply <aliases> --skill-target <claude or none>
    (on Windows the interpreter is alchemy-tools\.installer-venv\Scripts\python.exe)
    The installer exits 0 even when a tool fails. Read its last line ("Done: N installed, M skills written, K errors") and show me every FAILED tool with its message before going on.
-4. If manim-kit was installed, run `manim-kit doctor` and show me the apt line it prints if anything is missing. If studon-client or quizhub-client was installed, tell me that they added @reboot cron entries.
+4. If manim-kit was installed, run `manim-kit doctor` and show me the apt line it prints if anything is missing.
    Finish with one line per installed tool saying what it is for.
 ```
 
@@ -80,7 +72,7 @@ Each tool explains itself with `-h`, for example:
 
 ```
 bloggen -h
-fau-courses -h
+manim-kit -h
 ```
 
 Tools with a Claude Code skill can also be run for you from a `claude` session.

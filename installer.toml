@@ -14,17 +14,5 @@ name = "manim-kit"
 url = "https://github.com/AutomatedAlchemy/manim-kit"
 
 [[source]]
-name = "studon-client"
-url = "https://github.com/Probst1nator/studon-client"
-
-[[source]]
-name = "fau-courses"
-url = "https://github.com/Probst1nator/fau-courses"
-
-[[source]]
-name = "quizhub-client"
-url = "https://github.com/Probst1nator/quizhub-client"
-
-[[source]]
 name = "lernclaude"
 url = "https://github.com/AutomatedAlchemy/lernclaude"
