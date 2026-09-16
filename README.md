@@ -13,8 +13,6 @@ The tools it offers:
   Modulplan, Belegungen, exam registration deadlines.
 - **fau-courses** searches the public FAU course and exam catalog by topic.
 - **quizhub-client** uploads course material to Quiz Hub and builds a daily quiz.
-- **belegungen-watcher** compares studon-client's Belegungen export with the last
-  run and sends a desktop notification when something changes.
 - **lernclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
 

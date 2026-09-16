@@ -26,9 +26,5 @@ name = "quizhub-client"
 url = "https://github.com/Probst1nator/quizhub-client"
 
 [[source]]
-name = "belegungen-watcher"
-url = "https://github.com/Probst1nator/belegungen-watcher"
-
-[[source]]
 name = "lernclaude"
-url = "https://github.com/Probst1nator/lernclaude"
+url = "https://github.com/AutomatedAlchemy/lernclaude"
