@@ -11,6 +11,8 @@ The tools it offers:
 - **manim-kit** scaffolds, renders and opens Manim Community math animations.
 - **lernclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
+- **lernclaude-fau** is the same launcher with the NHR@FAU gateway backend; it
+  needs an NHR@FAU account and the author's private `fauclaude`.
 
 ## Install
 

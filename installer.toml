@@ -16,3 +16,7 @@ url = "https://github.com/AutomatedAlchemy/manim-kit"
 [[source]]
 name = "lernclaude"
 url = "https://github.com/AutomatedAlchemy/lernclaude"
+
+[[source]]
+name = "lernclaude-fau"
+url = "https://github.com/AutomatedAlchemy/lernclaude-fau"
