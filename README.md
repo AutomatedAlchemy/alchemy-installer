@@ -40,8 +40,9 @@ install them, then open a new terminal so the new commands are found.
 On its first run the installer clones the repos listed in `installer.toml`. A
 repo it cannot reach, because it is private or you are offline, is named in one
 line and skipped, and the rest still install. The installer itself is a thin
-wrapper over cli-tools-kit's sources feature, and `installer.toml` is the tool
-list.
+wrapper over cli-tools-kit's sources feature, and `installer.toml` names the
+GitHub org: every public repo of AutomatedAlchemy tagged `cli-tool-kit` is
+offered, so a new tool appears here without editing this repo.
 
 If you want the tools to work inside Claude Code as well, press `1` before
 `Enter`.

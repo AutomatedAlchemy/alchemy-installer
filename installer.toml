@@ -2,21 +2,12 @@
 #
 # `path` is relative to this file and pins a checkout that is never cloned.
 # `url` must be an https:// URL; it is cloned into ROOT/<name> on the first run.
+# `org` lists a GitHub org instead: every public repo tagged `topic` (default
+# cli-tool-kit) becomes a source named after the repo; `exclude` skips names.
 # A source with both uses `path` when that directory exists, else the URL.
 # `installer.local.toml` next to this file overrides `root` and any `path`.
 
 [[source]]
-name = "bloggen"
-url = "https://github.com/AutomatedAlchemy/BlogGen"
-
-[[source]]
-name = "manim-kit"
-url = "https://github.com/AutomatedAlchemy/manim-kit"
-
-[[source]]
-name = "lernclaude"
-url = "https://github.com/AutomatedAlchemy/lernclaude"
-
-[[source]]
-name = "lernclaude-fau"
-url = "https://github.com/AutomatedAlchemy/lernclaude-fau"
+org     = "AutomatedAlchemy"
+topic   = "cli-tool-kit"
+exclude = ["alchemy-installer"]

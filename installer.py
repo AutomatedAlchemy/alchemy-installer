@@ -54,7 +54,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "installer.toml")
 
 # The tool's own --install imports cli_tools_kit inside its venv.
-CLI_TOOLS_KIT = "cli-tools-kit==0.6.3"
+CLI_TOOLS_KIT = "cli-tools-kit==0.7.1"
 
 
 def _has_deps(requirements):
