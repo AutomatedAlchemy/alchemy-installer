@@ -41,13 +41,22 @@ interpreter.
 The login check (`--check`) only reconciles skills. A tool's `--install` may
 register cron entries, shell functions or an interactive login, so a login hook
 must never run it.
+
+Skills can go to two places, chosen on the screen. "claude" is the usual
+`~/.claude/skills/<name>/` via the tool's `--install-skill`. "fauclaude" links
+the skill into `~/.config/fauclaude/skills/<name>`, one of the roots fauclaude
+and fauopencode (from fau-agents) scan when they stage a session's skills; the
+isolated fauclaude config never sees `~/.claude/skills`, so this is how a
+tool's skill reaches a fauclaude session.
 """
 
 import os
+import shutil
 import subprocess
 import sys
 
 import cli_tools_kit.gui_installer as gi
+from cli_tools_kit import tui_installer
 from cli_tools_kit.sources import run_installer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -106,12 +115,114 @@ gi.install_skill_for_tool = lambda tool: _run(tool, "--install-skill")
 gi.uninstall_skill_for_tool = lambda tool: _run(tool, "--uninstall-skill")
 
 
+# --- the fauclaude skill target ---------------------------------------------
+# fauclaude and fauopencode stage a session's skills from SKILL.md files they
+# find under their skill roots; ~/.config/fauclaude/skills/*/SKILL.md is one of
+# them (see fau-agents, fau_agents/skills.py). A symlink there named after the
+# skill makes any tool's skill reachable. It points at the tool's directory when
+# the SKILL.md lives there (the launcher then also resolves the tool's own venv
+# for `{{CLI}}`), else at the copy the tool's --install-skill writes to
+# ~/.claude/skills. The same target, for the ww3claude profile, is in
+# FAU-WW3/tools-installer.
+
+FAUCLAUDE_SKILLS = os.path.join(
+    os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "fauclaude", "skills")
+CLAUDE_SKILLS = os.path.join(os.path.expanduser("~"), ".claude", "skills")
+
+
+def _fauclaude_link(tool):
+    return os.path.join(FAUCLAUDE_SKILLS, tool.skill_name)
+
+
+def _fauclaude_installed(tool):
+    return os.path.isfile(os.path.join(_fauclaude_link(tool), "SKILL.md"))
+
+
+def _fauclaude_install(tool):
+    tool_dir = os.path.dirname(tool.script_path)
+    if os.path.isfile(os.path.join(tool_dir, "SKILL.md")):
+        source = tool_dir
+    else:
+        ok, out = _run(tool, "--install-skill")
+        if not ok:
+            return False, out
+        source = os.path.join(CLAUDE_SKILLS, tool.skill_name)
+        if not os.path.isfile(os.path.join(source, "SKILL.md")):
+            return False, f"{tool.name} --install-skill did not write {source}/SKILL.md"
+    link = _fauclaude_link(tool)
+    os.makedirs(FAUCLAUDE_SKILLS, exist_ok=True)
+    if os.path.islink(link):
+        if os.readlink(link) == source:
+            return True, f"already linked: {link}"
+        os.unlink(link)
+    elif os.path.exists(link):
+        # A junction or an earlier copy: replace it. On POSIX this only
+        # triggers for a real directory, which is not ours to delete.
+        if os.name == "nt":
+            _remove_link_dir(link)
+        else:
+            return False, f"{link} exists and is not a symlink; remove it by hand"
+    # Windows only creates symlinks in developer mode or as admin, so fall back
+    # to a directory junction and, failing that, to a copy.
+    try:
+        os.symlink(source, link)
+        return True, f"linked {link} -> {source}\nfauclaude picks it up on its next launch"
+    except OSError:
+        pass
+    try:
+        import _winapi  # noqa: PLC0415
+        _winapi.CreateJunction(source, link)
+        return True, (f"junction {link} -> {source}\n"
+                      "fauclaude picks it up on its next launch")
+    except (ImportError, AttributeError, OSError):
+        pass
+    try:
+        shutil.copytree(source, link)
+    except OSError as exc:
+        return False, f"could not link or copy the skill to {link}: {exc}"
+    return True, (f"copied {source} -> {link}\n"
+                  "fauclaude picks it up on its next launch; the copy does not\n"
+                  "follow later changes to the skill, so reinstall it after an update")
+
+
+def _remove_link_dir(path):
+    """Remove a symlink, a directory junction, or a copied directory."""
+    if os.path.islink(path):
+        os.unlink(path)
+        return
+    try:
+        # os.rmdir removes a junction without touching what it points at.
+        os.rmdir(path)
+    except OSError:
+        shutil.rmtree(path)
+
+
+def _fauclaude_uninstall(tool):
+    link = _fauclaude_link(tool)
+    if os.path.islink(link):
+        os.unlink(link)
+        return True, f"unlinked {link}"
+    if os.path.exists(link):
+        if os.name != "nt":
+            return False, f"{link} exists and is not a symlink; remove it by hand"
+        _remove_link_dir(link)  # a junction or a copy that install made
+        return True, f"removed {link}"
+    return True, "not linked"
+
+
+FAUCLAUDE_TARGET = tui_installer.SkillTarget(
+    key="fauclaude", label="fauclaude session skills",
+    installed=_fauclaude_installed, install=_fauclaude_install,
+    uninstall=_fauclaude_uninstall)
+
+
 if __name__ == "__main__":
     # The names below are the ones the earlier repos.json installer used, so
     # the app-menu entry, the autostart check and its state stay where they are.
     run_installer(CONFIG, entry_script=__file__,
                   default_root_name="alchemy-tools",
                   check_reconcile_shortcuts=False,
+                  skill_targets=[tui_installer.claude_target(), FAUCLAUDE_TARGET],
                   window_title="AutomatedAlchemy installer",
                   self_desktop_file="automatedalchemy_installer.desktop",
                   self_desktop_name="AutomatedAlchemy Installer",

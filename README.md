@@ -12,7 +12,10 @@ The tools it offers:
 - **lernclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
 - **lernclaude-fau** is the same launcher with the NHR@FAU gateway backend; it
-  needs an NHR@FAU account and the author's private `fauclaude`.
+  needs an NHR@FAU key and `fauclaude` from fau-agents.
+- **fau-agents** brings `fauclaude` and `fauopencode`: Claude Code and OpenCode
+  on the free NHR@FAU LLM gateway, with skills loaded for that session only.
+  They need an NHR@FAU key.
 
 ## Install
 
@@ -45,7 +48,8 @@ GitHub org: every public repo of AutomatedAlchemy tagged `cli-tool-kit` is
 offered, so a new tool appears here without editing this repo.
 
 If you want the tools to work inside Claude Code as well, press `1` before
-`Enter`.
+`Enter` (or `2` for the fauclaude and fauopencode sessions on the NHR@FAU
+gateway).
 
 ### Or let Claude Code install it
 
@@ -60,9 +64,9 @@ Set up the AutomatedAlchemy learning tools on this machine. Steps:
    On Windows (PowerShell) instead:
    git clone https://github.com/AutomatedAlchemy/alchemy-installer.git; powershell -ExecutionPolicy Bypass -File alchemy-installer\setup.ps1 -Root "$PWD\alchemy-tools" --list
    It lists the tools; the installer clones the tool repos into alchemy-tools itself while doing so. If a clone asks for credentials, hand the prompt to me. A repo that is skipped means its tools are missing from the list, which is fine.
-2. Ask me with AskUserQuestion (multi-select, all ticked by default) which tools from the list I want, and (yes/no) whether their Claude Code skills should be installed too.
+2. Ask me with AskUserQuestion (multi-select, all ticked by default) which tools from the list I want. Then ask (single-select) where their Claude skills go: "claude" (this Claude Code), "fauclaude" (the fauclaude and fauopencode sessions on the NHR@FAU gateway), both, or none.
 3. Run, with the chosen aliases. This takes several minutes, because every tool with dependencies gets its own venv and pip installs them into it. Run it in the background and do not pipe it through tail or head, so the output stays readable while it runs:
-   ./alchemy-tools/.installer-venv/bin/python3 alchemy-installer/installer.py --root "$PWD/alchemy-tools" --apply <aliases> --skill-target <claude or none>
+   ./alchemy-tools/.installer-venv/bin/python3 alchemy-installer/installer.py --root "$PWD/alchemy-tools" --apply <aliases> --skill-target <claude, fauclaude, claude,fauclaude or none>
    (on Windows the interpreter is alchemy-tools\.installer-venv\Scripts\python.exe)
    The installer exits 0 even when a tool fails. Read its last line ("Done: N installed, M skills written, K errors") and show me every FAILED tool with its message before going on.
 4. If manim-kit was installed, run `manim-kit doctor` and show me the apt line it prints if anything is missing.

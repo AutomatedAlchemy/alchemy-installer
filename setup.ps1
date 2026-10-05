@@ -11,7 +11,7 @@
 #
 # The script then makes a venv for the installer itself, installs cli-tools-kit
 # into it, and opens the installer window. Tick what you want, choose whether
-# skills go to Claude Code, and Apply.
+# skills go to Claude Code, fauclaude, or both, and Apply.
 #
 # The tool repos are the installer's job. It clones the ones listed in
 # installer.toml into the chosen folder on its first run, and skips one it

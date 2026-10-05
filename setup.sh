@@ -12,7 +12,7 @@
 # The script then makes a venv for the installer itself (Debian/Ubuntu block pip
 # installs into the system Python), installs cli-tools-kit into it, and opens
 # the installer: a window on a desktop, a text screen over SSH. Tick what you
-# want, choose whether skills go to Claude Code, and Apply.
+# want, choose whether skills go to Claude Code, fauclaude, or both, and Apply.
 #
 # The tool repos are the installer's job. It clones the ones listed in
 # installer.toml into the chosen folder on its first run, and skips one it
