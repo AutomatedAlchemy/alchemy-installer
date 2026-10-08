@@ -11,3 +11,9 @@
 org     = "AutomatedAlchemy"
 topic   = "cli-tool-kit"
 exclude = ["alchemy-installer"]
+
+# The plain clawd mod is on the personal account, which the org listing does not
+# cover. Its MatSci octopus version, clawd-matsci, comes with the org.
+[[source]]
+name = "clawd"
+url  = "https://github.com/Probst1nator/clawd"

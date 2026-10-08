@@ -16,6 +16,10 @@ The tools it offers:
 - **fau-agents** brings `fauclaude` and `fauopencode`: Claude Code and OpenCode
   on the free NHR@FAU LLM gateway, with skills loaded for that session only.
   They need an NHR@FAU key.
+- **clawd** and **clawd-matsci** are a mod for Claude Code: Clawd, the creature
+  from the Claude Code banner, runs around in a strip above the prompt; in
+  clawd-matsci it is the MatSci octopus. Install one of the two. Each is offered
+  for Claude Code and, as the row marked `(fauclaude)`, for fauclaude.
 
 ## Install
 
@@ -65,6 +69,7 @@ Set up the AutomatedAlchemy learning tools on this machine. Steps:
    git clone https://github.com/AutomatedAlchemy/alchemy-installer.git; powershell -ExecutionPolicy Bypass -File alchemy-installer\setup.ps1 -Root "$PWD\alchemy-tools" --list
    It lists the tools; the installer clones the tool repos into alchemy-tools itself while doing so. If a clone asks for credentials, hand the prompt to me. A repo that is skipped means its tools are missing from the list, which is fine.
 2. Ask me with AskUserQuestion (multi-select, all ticked by default) which tools from the list I want. Then ask (single-select) where their Claude skills go: "claude" (this Claude Code), "fauclaude" (the fauclaude and fauopencode sessions on the NHR@FAU gateway), both, or none.
+   Leave the clawd rows out of that list and ask about them on their own (single-select): clawd, clawd-matsci or neither. Its name goes into the aliases as it is for this Claude Code, with `-fauclaude` appended for fauclaude (for example `clawd-matsci-fauclaude`).
 3. Run, with the chosen aliases. This takes several minutes, because every tool with dependencies gets its own venv and pip installs them into it. Run it in the background and do not pipe it through tail or head, so the output stays readable while it runs:
    ./alchemy-tools/.installer-venv/bin/python3 alchemy-installer/installer.py --root "$PWD/alchemy-tools" --apply <aliases> --skill-target <claude, fauclaude, claude,fauclaude or none>
    (on Windows the interpreter is alchemy-tools\.installer-venv\Scripts\python.exe)

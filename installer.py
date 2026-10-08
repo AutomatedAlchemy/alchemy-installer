@@ -48,6 +48,11 @@ the skill into `~/.config/fauclaude/skills/<name>`, one of the roots fauclaude
 and fauopencode (from fau-agents) scan when they stage a session's skills; the
 isolated fauclaude config never sees `~/.claude/skills`, so this is how a
 tool's skill reaches a fauclaude session.
+
+A repo that stands for a Claude Code plugin (clawd, clawd-matsci) is offered
+twice: for `~/.claude`, and as `<name> (fauclaude)` for fauclaude's own config
+directory, `~/.claude-fau` or `$CLAUDE_FAU_CONFIG_DIR`. That needs cli-tools-kit
+1.5.0; an older kit offers the plain row only.
 """
 
 import os
@@ -58,6 +63,11 @@ import sys
 import cli_tools_kit.gui_installer as gi
 from cli_tools_kit import tui_installer
 from cli_tools_kit.sources import run_installer
+
+try:  # Claude Code plugin rows came with cli-tools-kit 1.5.0.
+    from cli_tools_kit import plugins
+except ImportError:
+    plugins = None
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "installer.toml")
@@ -215,10 +225,21 @@ FAUCLAUDE_TARGET = tui_installer.SkillTarget(
     installed=_fauclaude_installed, install=_fauclaude_install,
     uninstall=_fauclaude_uninstall)
 
+# fauclaude runs Claude Code with this CLAUDE_CONFIG_DIR (fau-agents,
+# fauclaude/main.py), so a plugin for its sessions is installed there.
+FAUCLAUDE_CONFIG = os.environ.get("CLAUDE_FAU_CONFIG_DIR",
+                                  os.path.join(os.path.expanduser("~"), ".claude-fau"))
+PLUGIN_TARGETS = None if plugins is None else [
+    plugins.default_target(),
+    plugins.PluginTarget(key="fauclaude", label="the fauclaude config",
+                         config_dir=FAUCLAUDE_CONFIG),
+]
+
 
 if __name__ == "__main__":
     # The names below are the ones the earlier repos.json installer used, so
     # the app-menu entry, the autostart check and its state stay where they are.
+    extra = {} if PLUGIN_TARGETS is None else {"plugin_targets": PLUGIN_TARGETS}
     run_installer(CONFIG, entry_script=__file__,
                   default_root_name="alchemy-tools",
                   check_reconcile_shortcuts=False,
@@ -231,4 +252,5 @@ if __name__ == "__main__":
                   notify_app="AutomatedAlchemy Installer",
                   autostart_check_desktop_name="automatedalchemy-installer-check.desktop",
                   check_log_name="alchemy-installer-check.log",
-                  check_state_name="alchemy-installer-check.json")
+                  check_state_name="alchemy-installer-check.json",
+                  **extra)
