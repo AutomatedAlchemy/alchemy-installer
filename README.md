@@ -9,9 +9,9 @@ The tools it offers:
 - **bloggen** turns a screenshot, images, a PDF or text into a self-contained
   HTML blogpost.
 - **manim-kit** scaffolds, renders and opens Manim Community math animations.
-- **lernclaude** starts a Claude Code session that runs the exam-prep loop a
+- **studyclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
-- **lernclaude-fau** is the same launcher with the NHR@FAU gateway backend; it
+- **studyclaude-fau** is the same launcher with the NHR@FAU gateway backend; it
   needs an NHR@FAU key and `fauclaude` from fau-agents.
 - **fau-agents** brings `fauclaude` and `fauopencode`: Claude Code and OpenCode
   on the free NHR@FAU LLM gateway, with skills loaded for that session only.
