@@ -11,8 +11,6 @@ The tools it offers:
 - **manim-kit** scaffolds, renders and opens Manim Community math animations.
 - **studyclaude** starts a Claude Code session that runs the exam-prep loop a
   study folder defines.
-- **studyclaude-fau** is the same launcher with the NHR@FAU gateway backend; it
-  needs an NHR@FAU key and `fauclaude` from fau-agents.
 - **fau-agents** brings `fauclaude` and `fauopencode`: Claude Code and OpenCode
   on the free NHR@FAU LLM gateway, with skills loaded for that session only.
   They need an NHR@FAU key.
