@@ -30,6 +30,9 @@ ssh_help/
 installer.local.toml
 .installer-venv/
 
+# --- Owner notes between sessions: local only ---
+HANDOFF*.md
+
 # --- Runtime output ---
 *.log
 __pycache__/
