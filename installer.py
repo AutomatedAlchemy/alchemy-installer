@@ -109,7 +109,11 @@ def _run(tool, flag, provision=False, skip_deps=False):
         env["TOOLS_INSTALLER_SKIP_DEPS"] = "1"
     try:
         py = _tool_python(tool.script_path, provision)
-        result = subprocess.run([py, tool.script_path, flag] + tool.args,
+        # A launch arg such as studon-client's --gui wins over --install and opens
+        # the window instead, with exit code 0. A kit with lifecycle_args keeps
+        # launch args off lifecycle flags; an older kit keeps the old behaviour.
+        lifecycle_args = getattr(gi, "lifecycle_args", lambda t: list(t.args))
+        result = subprocess.run([py, tool.script_path, flag] + lifecycle_args(tool),
                                 cwd=os.path.dirname(tool.script_path),
                                 capture_output=True, text=True, env=env)
     except (OSError, subprocess.CalledProcessError) as e:
