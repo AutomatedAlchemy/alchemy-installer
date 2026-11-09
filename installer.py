@@ -49,7 +49,7 @@ and fauopencode (from fau-agents) scan when they stage a session's skills; the
 isolated fauclaude config never sees `~/.claude/skills`, so this is how a
 tool's skill reaches a fauclaude session.
 
-A repo that stands for a Claude Code plugin (clawd, clawd-matsci) is offered
+A repo that stands for a Claude Code plugin (clawd) is offered
 twice: for `~/.claude`, and as `<name> (fauclaude)` for fauclaude's own config
 directory, `~/.claude-fau` or `$CLAUDE_FAU_CONFIG_DIR`. That needs cli-tools-kit
 1.5.0; an older kit offers the plain row only.
