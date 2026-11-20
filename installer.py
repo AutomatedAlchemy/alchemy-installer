@@ -62,6 +62,7 @@ import sys
 
 import cli_tools_kit.gui_installer as gi
 from cli_tools_kit import tui_installer
+import cli_tools_kit.sources as ks
 from cli_tools_kit.sources import run_installer
 
 try:  # Claude Code plugin rows came with cli-tools-kit 1.5.0.
@@ -120,6 +121,47 @@ def _run(tool, flag, provision=False, skip_deps=False):
         return False, str(e)
     output = (result.stdout + result.stderr).strip()
     return result.returncode == 0, output or f"Exit code: {result.returncode}"
+
+
+# --- local checkouts --------------------------------------------------------
+# The kit offers what GitHub lists for the org and looks at the root only when
+# that listing fails. A repo that has no remote yet, or no `cli-tool-kit` topic,
+# would never show up. So every directory under the root is offered as well; the
+# walker drops the ones that hold no tool. Names that start with "_" or "." are
+# skipped (`_archived` holds retired tools), and so is a symlink to a directory
+# that is already offered (`lernclaude` -> `studyclaude`). `cli-tools-kit` is the
+# library itself and carries a demo tool, so it is skipped too.
+
+_NOT_TOOLS = {"cli-tools-kit"}
+
+_expand_org_sources = ks.expand_org_sources
+
+
+def _expand_with_local(sources, *, root=None, **kwargs):
+    expanded = _expand_org_sources(sources, root=root, **kwargs)
+    if root is None:
+        return expanded
+    base = os.path.realpath(os.path.expanduser(str(root)))
+    known = {s.name for s in expanded}
+    seen = {os.path.realpath(s.path) for s in expanded if getattr(s, "path", None)}
+    seen |= {os.path.realpath(os.path.join(base, n)) for n in known}
+    try:
+        names = sorted(os.listdir(base))
+    except OSError:
+        return expanded
+    for name in names:
+        full = os.path.join(base, name)
+        if name[0] in "_." or name in known or name in _NOT_TOOLS or not os.path.isdir(full):
+            continue
+        real = os.path.realpath(full)
+        if real in seen:
+            continue
+        seen.add(real)
+        expanded.append(ks.Source(name=name, path=real))
+    return expanded
+
+
+ks.expand_org_sources = _expand_with_local
 
 
 gi.install_tool = lambda tool, skip_deps=False: _run(

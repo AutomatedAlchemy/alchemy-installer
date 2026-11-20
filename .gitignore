@@ -14,15 +14,20 @@ LatexLabworksTemplate/
 quizhub-client/
 belegungen-watcher/
 studyclaude/
+openstudy/
+modulplan/
 fau-agents/
 clawd/
 clawd-matsci/
+simrun/
+atoms-kit/
+meso-kit/
+simfilm/
 
 # --- Not-yet-versioned projects and leftovers (decide per project, not here) ---
 lecture-recorder/
 _archived/
 screenshot-blogpost/
-studon-scraper/
 cip_tools/
 ssh_help/
 
